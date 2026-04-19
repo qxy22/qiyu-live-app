@@ -7,11 +7,41 @@
     <groupId>com.sky</groupId>
     <artifactId>qiyu-live-app</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>qiyu-live-api</module>
+        <module>qiyu-live-user-interface</module>
+        <module>qiyu-live-user-provider</module>
+        <module>qiyu-live-common-interface</module>
+        <module>qiyu-live-framework</module>
+        <module>qiyu-live-id-generate-interface</module>
+        <module>qiyu-live-id-generate-provider</module>
+    </modules>
 
     <properties>
+        <qiyu-mysql.version>8.0.28</qiyu-mysql.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <springboot.version>3.2.4</springboot.version>
     </properties>
-    
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.4</version>
+        <relativePath/>
+    </parent>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2023.0.3.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

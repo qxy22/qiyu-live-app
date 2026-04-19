@@ -1,0 +1,14 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: qiyu-live-api
+  cloud:
+    nacos:
+      username: qiyu
+      password: qiyu
+      server-addr: 127.0.0.1:8848
+      discovery:
+        namespace: qiyu-live-test
+

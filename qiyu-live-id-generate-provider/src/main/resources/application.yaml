@@ -1,0 +1,39 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        username: qiyu
+        password: qiyu
+        server-addr: 127.0.0.1:8848
+        namespace: qiyu-live-test
+        enabled: true
+        register-enabled: true
+  application:
+    name: qiyu-live-id-generate-provider
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #访问主库
+    url: jdbc:mysql://localhost:3306/qiyu_live_common?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+
+dubbo:
+  application:
+    name: ${spring.application.name}
+    qos-enable: false
+  registry:
+    address: nacos://127.0.0.1:8848?namespace=qiyu-live-test&username=qiyu&password=qiyu
+  protocol:
+    name: dubbo
+    port: 9098
+  scan:
+    base-packages: org.qiyu.live.id.generate.provider.rpc
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: org.qiyu.live.id.generate.provider.dao.po
+server:
+  port: 8084

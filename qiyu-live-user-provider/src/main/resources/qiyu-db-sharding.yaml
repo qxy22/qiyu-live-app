@@ -1,0 +1,69 @@
+databaseName: logic_db   # 必须添加的逻辑数据库名称
+
+dataSources:
+  Mysql: ## 主库（写库）
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:3306/qiyu_live_user?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+    minimumIdle: 15
+    maximumPoolSize: 300
+    idleTimeout: 60000
+    connectionTimeout: 4000
+    maxLifetime: 60000
+
+  localhost_3307: ## 从库（读库）
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:3307/qiyu_live_user?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password:
+    minimumIdle: 15
+    maximumPoolSize: 300
+    idleTimeout: 60000
+    connectionTimeout: 4000
+    maxLifetime: 60000
+
+rules:
+  - !READWRITE_SPLITTING
+    dataSourceGroups:
+      readwrite_ds:
+        writeDataSourceName: Mysql
+        readDataSourceNames:
+          - localhost_3307
+        transactionalReadQueryStrategy: PRIMARY
+        loadBalancerName: random
+    loadBalancers:
+      random:
+        type: RANDOM
+
+  - !SINGLE
+      defaultDataSource: readwrite_ds
+
+  - !SHARDING
+    tables:
+      t_user:
+        actualDataNodes: readwrite_ds.t_user_${(0..99).collect(){it.toString().padLeft(2,'0')}}
+        tableStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: t_user-inline
+      t_user_tag:
+        actualDataNodes: readwrite_ds.t_user_tag_${(0..99).collect(){it.toString().padLeft(2,'0')}}
+        tableStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: t_user_tag-inline
+    shardingAlgorithms:
+      t_user-inline:
+        type: INLINE
+        props:
+          algorithm-expression: t_user_${(user_id % 100).toString().padLeft(2,'0')}
+      t_user_tag-inline:
+        type: INLINE
+        props:
+          algorithm-expression: t_user_tag_${(user_id % 100).toString().padLeft(2,'0')}
+
+props:
+  sql-show: true
