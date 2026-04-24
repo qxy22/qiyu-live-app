@@ -1,0 +1,19 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: qiyu-live-gateway
+
+  config:
+    import: nacos:qiyu-live-gateway.yaml?group=DEFAULT_GROUP&refresh=true
+
+  cloud:
+    nacos:
+      username: ${NACOS_USERNAME:qiyu}
+      password: ${NACOS_PASSWORD:qiyu}
+      server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
+      discovery:
+        namespace: ${NACOS_NAMESPACE:qiyu-live-test}
+      config:
+        namespace: ${NACOS_NAMESPACE:qiyu-live-test}

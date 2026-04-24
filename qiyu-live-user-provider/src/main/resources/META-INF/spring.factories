@@ -1,0 +1,2 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+org.qiyu.live.user.provider.config.NacosShardingSphereConfigEnvironmentPostProcessor

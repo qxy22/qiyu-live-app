@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: qiyu-live-api
+  cloud:
+    nacos:
+      username: ${NACOS_USERNAME:qiyu}
+      password: ${NACOS_PASSWORD:qiyu}
+      server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
+        namespace: ${NACOS_NAMESPACE:qiyu-live-test}
+      config:
+        import-check:
+          enabled: false
+        file-extension: yaml
+        server-addr: ${NACOS_SERVER_ADDR:127.0.0.1:8848}
+        namespace: ${NACOS_NAMESPACE:qiyu-live-test}
+  config:
+    import:
+      - optional:nacos:qiyu-live-api.yaml

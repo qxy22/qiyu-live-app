@@ -1,0 +1,23 @@
+services:
+  qiyu-live-gateway:
+    image: qiyu-live-gateway-docker:1.0-SNAPSHOT
+    build:
+      context: ../target
+      dockerfile: ../docker/Dockerfile
+    container_name: qiyu-live-gateway
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    environment:
+      SERVER_PORT: 8086
+      NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR:-host.docker.internal:8848}
+      NACOS_USERNAME: ${NACOS_USERNAME:-qiyu}
+      NACOS_PASSWORD: ${NACOS_PASSWORD:-qiyu}
+      NACOS_NAMESPACE: ${NACOS_NAMESPACE:-qiyu-live-test}
+      TZ: Asia/Shanghai
+    networks:
+      - qiyu-live-net
+
+networks:
+  qiyu-live-net:
+    external: true

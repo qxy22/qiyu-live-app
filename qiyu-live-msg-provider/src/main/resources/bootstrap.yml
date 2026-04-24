@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: qiyu-live-msg-provider
+  cloud:
+    nacos:
+      username: qiyu
+      password: qiyu
+      server-addr: 10.51.77.21:8848
+      discovery:
+        server-addr: 10.51.77.21:8848
+        namespace: qiyu-live-test
+      config:
+        import-check:
+          enabled: false
+        file-extension: yaml
+        server-addr: 10.51.77.21:8848
+        namespace: qiyu-live-test
+  config:
+    import:
+      - optional:nacos:qiyu-live-msg-provider.yaml

@@ -1,0 +1,11 @@
+      t_user_phone:
+        actualDataNodes: readwrite_ds.t_user_phone_${(0..99).collect(){it.toString().padLeft(2,'0')}}
+        tableStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: t_user_phone-inline
+
+      t_user_phone-inline:
+        type: INLINE
+        props:
+          algorithm-expression: t_user_phone_${(user_id % 100).toString().padLeft(2,'0')}
