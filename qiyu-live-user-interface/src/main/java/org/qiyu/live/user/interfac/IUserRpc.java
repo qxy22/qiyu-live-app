@@ -13,6 +13,8 @@ public interface IUserRpc {
      */
     UserDTO getUserById(Long userId);
 
+    UserDTO getUserByPhone(String phone);
+
     /**
      * 批量查询用户信息（高并发优化版）
      * 核心策略：Redis缓存 + 多线程分表查询
@@ -28,6 +30,8 @@ public interface IUserRpc {
      * @return 是否成功
      */
     boolean createUser(Long userId);
+
+    boolean createUser(UserDTO userDTO);
 
     /**
      * 更新用户信息

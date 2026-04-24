@@ -6,7 +6,9 @@ import org.apache.rocketmq.common.message.MessageConst;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.qiyu.live.user.DTO.UserDTO;
 import org.qiyu.live.user.provider.dao.mapper.IUserMapper;
+import org.qiyu.live.user.provider.dao.mapper.IUserPhoneMapper;
 import org.qiyu.live.user.provider.dao.po.UserPO;
+import org.qiyu.live.user.provider.dao.po.UserPhonePO;
 import org.qiyu.live.user.provider.mq.CacheDeleteProducer;
 import org.qiyu.live.user.provider.service.IUserService;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -58,6 +61,9 @@ public class IUserServiceImpl implements IUserService {
 
     @Resource
     private IUserMapper userMapper;
+
+    @Resource
+    private IUserPhoneMapper userPhoneMapper;
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
@@ -108,8 +114,25 @@ public class IUserServiceImpl implements IUserService {
         
         // 第三步：将查询结果写入缓存
         UserDTO userDTO = ConvertBeanUtils.convert(userPo, UserDTO.class);
+        fillUserPhone(userDTO);
         redisTemplate.opsForValue().set(cacheKey, userDTO, USER_CACHE_EXPIRE_TIME, TimeUnit.MINUTES);
         
+        return userDTO;
+    }
+
+    @Override
+    public UserDTO getUserByPhone(String phone) {
+        if (phone == null || phone.isBlank()) {
+            return null;
+        }
+        UserPhonePO userPhonePO = userPhoneMapper.selectByPhone(phone);
+        if (userPhonePO == null) {
+            return null;
+        }
+        UserDTO userDTO = getUserById(userPhonePO.getUserId());
+        if (userDTO != null) {
+            userDTO.setPhone(userPhonePO.getPhone());
+        }
         return userDTO;
     }
 
@@ -282,6 +305,7 @@ public class IUserServiceImpl implements IUserService {
      * @return 是否成功
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean createUser(UserDTO userDTO) {
         // 参数校验
         if (userDTO == null || userDTO.getUserId() == null) {
@@ -291,8 +315,26 @@ public class IUserServiceImpl implements IUserService {
         // 转换并插入数据库
         UserPO userPo = ConvertBeanUtils.convert(userDTO, UserPO.class);
         userMapper.insert(userPo);
+        if (userDTO.getPhone() != null && !userDTO.getPhone().isBlank()) {
+            UserPhonePO userPhonePO = new UserPhonePO();
+            userPhonePO.setUserId(userDTO.getUserId());
+            userPhonePO.setPhone(userDTO.getPhone());
+            userPhonePO.setStatus(1);
+            userPhoneMapper.insert(userPhonePO);
+        }
+        redisTemplate.delete(USER_CACHE_KEY_PREFIX + userDTO.getUserId());
         
         return true;
+    }
+
+    private void fillUserPhone(UserDTO userDTO) {
+        if (userDTO == null || userDTO.getUserId() == null) {
+            return;
+        }
+        UserPhonePO userPhonePO = userPhoneMapper.selectByUserId(userDTO.getUserId());
+        if (userPhonePO != null) {
+            userDTO.setPhone(userPhonePO.getPhone());
+        }
     }
 
 }

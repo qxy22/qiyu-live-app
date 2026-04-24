@@ -19,7 +19,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDubbo
 @EnableDiscoveryClient
-public class IdGenerateProvider implements CommandLineRunner {
+public class IdGenerateProvider{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IdGenerateProvider.class);
 
@@ -32,17 +32,17 @@ public class IdGenerateProvider implements CommandLineRunner {
         SpringApplication.run(IdGenerateProvider.class, args);
     }
 
-    @Override
-    public void run(String... args) throws Exception {
-        // 循环 1300 次
-        for (int i = 0; i < 1300; i++) {
-            // 调用 ID 生成服务，传入业务类型 1，生成一个唯一 ID
-            Long id = idGenerateService.getUnSeqId(1);
-            // 打印生成的 ID
-            System.out.println(id);
-
-        }
-    }
+//    @Override
+//    public void run(String... args) throws Exception {
+//        // 循环 1300 次
+//        for (int i = 0; i < 1300; i++) {
+//            // 调用 ID 生成服务，传入业务类型 1，生成一个唯一 ID
+//            Long id = idGenerateService.getUnSeqId(1);
+//            // 打印生成的 ID
+//            System.out.println(id);
+//
+//        }
+//    }
 
     private void printTestMessage(String message) {
         LOGGER.info(message);

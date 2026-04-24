@@ -8,6 +8,8 @@ public interface IUserService {
 
     UserDTO getUserById(Long userId);
 
+    UserDTO getUserByPhone(String phone);
+
     /**
      * 批量获取用户信息（高并发优化版）
      * 核心策略：Redis缓存 + 多线程分表查询

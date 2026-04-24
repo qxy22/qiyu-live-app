@@ -25,6 +25,13 @@
             <version>3.3.0</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.8.2</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-registry-nacos</artifactId>
@@ -34,6 +41,16 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
 
         <dependency>
@@ -61,7 +78,7 @@
         </dependency>
 
 
-        <!-- ShardingSphere 5.3.2 兼容 Spring Boot 3.2.4 和 JDK 17 -->
+        <!-- ShardingSphere 5.5.2 兼容 Spring Boot 3.2.4 和 JDK 17 -->
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>shardingsphere-jdbc</artifactId>
@@ -100,6 +117,18 @@
 
         <dependency>
             <groupId>com.sky</groupId>
+            <artifactId>qiyu-live-msg-interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sky</groupId>
+            <artifactId>qiyu-live-id-generate-interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sky</groupId>
             <artifactId>qiyu-live-framework-datasource</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
@@ -127,6 +156,12 @@
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-spring-boot-starter</artifactId>
             <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sky</groupId>
+            <artifactId>qiyu-live-msg-provider</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

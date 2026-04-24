@@ -27,6 +27,11 @@ public class UserDTO implements Serializable {
     private String avatar;
 
     /**
+     * 手机号
+     */
+    private String phone;
+
+    /**
      * 性别（0-女，1-男）
      */
     private Integer sex;
@@ -136,6 +141,14 @@ public class UserDTO implements Serializable {
         this.avatar = avatar;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     /**
      * 获取
      * @return sex
@@ -233,6 +246,6 @@ public class UserDTO implements Serializable {
     }
 
     public String toString() {
-        return "UserDTO{serialVersionUID = " + serialVersionUID + ", userId = " + userId + ", nickName = " + nickName + ", trueName = " + trueName + ", avatar = " + avatar + ", sex = " + sex + ", workCity = " + workCity + ", bornCity = " + bornCity + ", bornDate = " + bornDate + ", createTime = " + createTime + ", updateTime = " + updateTime + "}";
+        return "UserDTO{serialVersionUID = " + serialVersionUID + ", userId = " + userId + ", nickName = " + nickName + ", trueName = " + trueName + ", avatar = " + avatar + ", phone = " + phone + ", sex = " + sex + ", workCity = " + workCity + ", bornCity = " + bornCity + ", bornDate = " + bornDate + ", createTime = " + createTime + ", updateTime = " + updateTime + "}";
     }
 }

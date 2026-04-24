@@ -16,6 +16,9 @@
         <module>qiyu-live-framework</module>
         <module>qiyu-live-id-generate-interface</module>
         <module>qiyu-live-id-generate-provider</module>
+        <module>qiyu-live-Gateway</module>
+        <module>qiyu-live-msg-interface</module>
+        <module>qiyu-live-msg-provider</module>
     </modules>
 
     <properties>
@@ -24,6 +27,10 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <springboot.version>3.2.4</springboot.version>
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
+        <spring-cloud-alibaba.version>2023.0.3.2</spring-cloud-alibaba.version>
+        <dubbo.version>3.3.0</dubbo.version>
+        <mybatis-plus.version>3.5.7</mybatis-plus.version>
     </properties>
 
     <parent>
@@ -36,9 +43,16 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2023.0.3.2</version>
+                <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

@@ -20,6 +20,11 @@ public class UserRpcImpl implements IUserRpc {
     }
 
     @Override
+    public UserDTO getUserByPhone(String phone) {
+        return userService.getUserByPhone(phone);
+    }
+
+    @Override
     public List<UserDTO> batchGetUserByIds(List<Long> userIds) {
         return userService.batchGetUserByIds(userIds);
     }
@@ -28,6 +33,11 @@ public class UserRpcImpl implements IUserRpc {
     public boolean createUser(Long userId) {
         UserDTO userDTO = new UserDTO();
         userDTO.setUserId(userId);
+        return userService.createUser(userDTO);
+    }
+
+    @Override
+    public boolean createUser(UserDTO userDTO) {
         return userService.createUser(userDTO);
     }
 

@@ -15,7 +15,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDubbo
 @EnableDiscoveryClient
-public class UserProvider implements CommandLineRunner {
+public class UserProvider{
     private static final Logger log = LoggerFactory.getLogger(UserProvider.class);
 
     @Resource
@@ -27,35 +27,4 @@ public class UserProvider implements CommandLineRunner {
         SpringApplication.run(UserProvider.class, args);
     }
 
-    @Override
-    public void run(String... args) throws Exception {
-        long userId = 1114L;
-        UserDTO userDTO = userService.getUserById(userId);
-        System.out.println(userDTO);
-        System.out.println("-----------------------------");
-        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_VIP));
-//        userDTO.setNickName("测试用户");
-//        userService.updateUser(userDTO);
-//        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_VIP));
-//        System.out.println(userTagService.setTag(userId, UserTagsEnum.IS_VIP));
-//        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_VIP));
-//        System.out.println(userTagService.cancelTag(userId, UserTagsEnum.IS_VIP));
-//        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_VIP));
-
-
-
-//        System.out.println(userTagService.setTag(userId, UserTagsEnum.IS_VIP));
-//        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_VIP));
-//        System.out.println(userTagService.setTag(userId, UserTagsEnum.IS_OLD_USER));
-//        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_OLD_USER));
-//        System.out.println(userTagService.setTag(userId, UserTagsEnum.IS_ANCHOR));
-//        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_ANCHOR));
-//        System.out.println("-----------------------------");
-//        System.out.println(userTagService.cancelTag(userId, UserTagsEnum.IS_ANCHOR));
-//        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_ANCHOR));
-//        System.out.println(userTagService.cancelTag(userId, UserTagsEnum.IS_VIP));
-//        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_VIP));
-//        System.out.println(userTagService.cancelTag(userId, UserTagsEnum.IS_OLD_USER));
-//        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_OLD_USER));
-    }
 }

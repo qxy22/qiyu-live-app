@@ -11,8 +11,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RocketMQMessageListener(
-        topic = "cache-delete-topic",
-        consumerGroup = "cache-delete-consumer-group"
+        topic = "${qiyu.rocketmq.cache-delete.topic:cache-delete-topic}",
+        consumerGroup = "${qiyu.rocketmq.cache-delete.consumer-group:cache-delete-consumer-group}",
+        instanceName = "cache-delete-consumer-instance"
 )
 public class CacheDeleteConsumer implements RocketMQListener<String> {
 
